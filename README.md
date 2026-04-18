@@ -6,7 +6,7 @@ Proof-of-concept adapter bridging [`rescript-signals`](https://github.com/brnrdo
 
 `rescript-signals` gives you a fine-grained reactive graph: `Signal`, `Computed`, `Effect`, with a disposer-returning effect primitive. React components don't know how to subscribe to that graph on their own. This package is the glue.
 
-## Install (once published)
+## Install (SORRY, NOT PUBLISHED YET)
 
 ```sh
 npm install rescript-signals-react rescript-signals @rescript/react react react-dom
@@ -78,7 +78,7 @@ let subscribe = React.useCallback1(listener => {
 
 The `firstRun` flag avoids notifying React on the initial synchronous run that `Effect.runWithDisposer` does to prime tracking.
 
-## What we borrowed from `@preact/signals-react`
+## Disclaimer: Borrowed from `@preact/signals-react`
 
 This PoC is deliberately API-compatible in shape with Preact's binding where it made sense. Specifically:
 
@@ -97,6 +97,13 @@ What we did **not** take from Preact:
 - `src/demo/Counter.res` — basic signal read + write.
 - `src/demo/DerivedDemo.res` — `useComputed` from two signals.
 - `src/demo/WriteDemo.res` — component-local signals via `useSignal`, batched writes.
+
+### Edge case / stress tests
+
+- `src/demo/StaleClosureDemo.res` — demonstrates the stale closure bug in `useComputed`. A React `useState` multiplier is captured once by `useMemo0` and never updates. Side-by-side comparison with `useComputedWithDeps` shows the fix.
+- `src/demo/ConditionalDemo.res` — mount/unmount lifecycle test. Toggles a child that uses `useSignal`; the signal is stored in a ref and never disposed on unmount. A render counter tracks lifecycle behavior.
+- `src/demo/DiamondDemo.res` — diamond dependency graph correctness. `root` feeds `left` (×2) and `right` (×3), both feed `combined` (left + right). A recompute counter verifies `combined` fires exactly once per `root` change with no glitch.
+- `src/demo/RapidUpdateDemo.res` — batched vs unbatched updates. Three signals updated individually (3 potential re-renders) vs inside `Signal.batch` (single re-render). A render counter shows the difference.
 
 ## Build & run
 
