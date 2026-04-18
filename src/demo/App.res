@@ -183,7 +183,35 @@ let batched = _ => {
 @react.component
 let make = () => {
   <main>
-    <h1> {React.string("rescript-signals x rescript-react PoC")} </h1>
+    <h1> {React.string("rescript-signals-react")} </h1>
+    <section className="intro">
+      <p>
+        {React.string(
+          "Proof-of-concept adapter bridging rescript-signals (reactive signals for ReScript) to rescript-react via React 18's useSyncExternalStore.",
+        )}
+      </p>
+      <p>
+        {React.string("API surface: ")}
+        <code> {React.string("useSignalValue")} </code>
+        {React.string(", ")}
+        <code> {React.string("useSignal")} </code>
+        {React.string(", ")}
+        <code> {React.string("useComputed")} </code>
+        {React.string(", ")}
+        <code> {React.string("useComputedWithDeps")} </code>
+        {React.string(", ")}
+        <code> {React.string("useSignalEffect")} </code>
+      </p>
+      <p>
+        {React.string("The demos below exercise the adapter. Edge case tests help validate and expose behavior at the boundaries.")}
+      </p>
+      <p>
+        <a href="https://github.com/brnrdog/rescript-signals-react" target="_blank" rel="noopener noreferrer">
+          {React.string("GitHub repo")}
+        </a>
+      </p>
+    </section>
+    <h2> {React.string("Core demos")} </h2>
     <div className="demo-row">
       <Counter />
       {code(counterCode)}
@@ -198,7 +226,7 @@ let make = () => {
       <WriteDemo />
       {code(writeCode)}
     </div>
-    <hr />
+    <h2> {React.string("Edge case / stress tests")} </h2>
     <div className="demo-row">
       <StaleClosureDemo />
       {code(staleClosureCode)}

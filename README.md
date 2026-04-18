@@ -2,11 +2,15 @@
 
 Proof-of-concept adapter bridging [`rescript-signals`](https://github.com/brnrdog/rescript-signals) (reactive signals for ReScript) to [`rescript-react`](https://github.com/rescript-lang/rescript-react) via React 18's `useSyncExternalStore`.
 
+## Status
+
+Proof of concept. Not published. Not production hardened.
+
 ## Why
 
 `rescript-signals` gives you a fine-grained reactive graph: `Signal`, `Computed`, `Effect`, with a disposer-returning effect primitive. React components don't know how to subscribe to that graph on their own. This package is the glue.
 
-## Install (SORRY, NOT PUBLISHED YET)
+## Install - future, not yet published (:
 
 ```sh
 npm install rescript-signals-react rescript-signals @rescript/react react react-dom
@@ -122,6 +126,4 @@ See the design notes in the original PoC discussion for the full list. The impor
 - Props captured inside a `useComputed` thunk go stale; use `useComputedWithDeps` or promote the prop into a signal.
 - Each `useSignalValue` call opens its own observer. Fine for normal UIs, worth knowing for benchmarks.
 
-## Status
 
-Proof of concept. Not published. Not production hardened. See "Next steps" in the design doc for what a real package would need.
