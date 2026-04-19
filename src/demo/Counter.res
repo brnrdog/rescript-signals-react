@@ -1,10 +1,11 @@
 open Signals
+open SignalsReact
 
 let countSignal = Signal.make(0)
 
 @react.component
 let make = () => {
-  let count = SignalsReact.useSignalValue(countSignal)
+  let count = useSignalValue(countSignal)
 
   <section>
     <h2> {React.string("Basic signal")} </h2>
